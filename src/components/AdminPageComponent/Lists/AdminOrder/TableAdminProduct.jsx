@@ -72,8 +72,8 @@ const TableAdminProduct = ({ selectedProduct, onUpdateQuantity }) => {
 
     return (
         <div>
-            <Table columns={columns} dataSource={selectedProduct} rowKey="_id" pagination={false} />
-            <div style={{ marginTop: '10px', textAlign: 'right', fontSize: '16px', fontWeight: 'bold' }}>
+            <Table columns={columns} dataSource={selectedProduct} rowKey="_id" pagination={false} scroll={{x: 'max-content'}} />
+            <div style={{ marginTop: '10px', textAlign: 'right', fontSize: '16px', fontWeight: 'bold', marginBottom: '15px', marginRight: '10px'}}>
                 Tổng tiền: {formatVND(totalPrice)}
             </div>
         </div>
