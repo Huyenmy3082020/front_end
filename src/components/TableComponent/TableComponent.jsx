@@ -117,6 +117,7 @@ const TableComponent = ({ data, isActionEdit }) => {
                 columns={columns()}
                 dataSource={data}
                 rowKey="_id"
+                scroll={{ x: 'max-content' }} //kích hoạt cuộn ngang
             />
             <Button type="primary">Xoa tat</Button>
 
