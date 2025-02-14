@@ -16,4 +16,14 @@ export const fetchGoodsDeliveries = async () => {
     }
 };
 
-
+// lấy danh sách phiếu nhâp
+export const updateGoodsDeliveries = async (id, data) => {
+    try {
+        console.log(id, data);
+        const res = await axiosInstance.put(`good/${id}`, data);
+        return res.data;
+    } catch (error) {
+        console.error('Error creating order:', error.response || error.message || error);
+        throw new Error('Failed to create order');
+    }
+};

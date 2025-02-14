@@ -16,7 +16,7 @@ const GoodsDeliveryTable = () => {
             try {
                 const goods = await fetchGoodsDeliveries();
                 const enrichedData = goods.map((delivery) => ({
-                    _id: generateDisplayId(delivery._id),
+                    _id: delivery._id,
                     userEmail: delivery.userId?.email,
                     userPhone: delivery.userId?.phone,
                     deliveryDate: delivery.deliveryDate,

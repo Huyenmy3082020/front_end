@@ -20,16 +20,20 @@ function AdminProduct() {
                 // 📌 Lấy danh sách nguyên liệu
                 const productResponse = await Productservice.getAllIngredient();
                 const products = productResponse.data.ingredients; // Lấy danh sách ingredients
+                console.log(products);
 
                 // 📌 Dùng Promise.all để lấy inventory của từng nguyên liệu
                 const inventoryData = await Promise.all(
                     products.map(async (product) => {
                         const inventoryReponse = await InventoryService.getIngredientId(product._id);
+                        console.log(inventoryReponse);
                         const inventory = inventoryReponse.data;
+                        console.log(inventory);
                         return { ...product, inventory }; // Gộp thông tin inventory vào product
                     }),
                 );
 
+                console.log(inventoryData);
                 setProducts(inventoryData); // Cập nhật state với danh sách đã có inventory
             } catch (error) {
                 console.error('Error fetching products:', error);

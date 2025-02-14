@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, InputNumber } from 'antd';
-
+import { fetchGoodsDeliveries, updateGoodsDeliveries } from '../../../../../service/GoodsDeliveryService';
+import { decodeDisplayId, encodeIdToHex } from '../../../../../ultil';
 const GoodsDeliveryTableV1 = ({ selectedDelivery }) => {
     const [quantities, setQuantities] = useState({});
 
@@ -31,6 +32,7 @@ const GoodsDeliveryTableV1 = ({ selectedDelivery }) => {
 
     const totalPrice = dataSource.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
+    console.log(dataSource);
     const columns = [
         {
             title: 'Tên sản phẩm',
@@ -71,6 +73,21 @@ const GoodsDeliveryTableV1 = ({ selectedDelivery }) => {
         },
     ];
 
+    const dataUpdate = {
+        _id: selectedDelivery._id,
+        items: dataSource.map((item) => ({ ...item, quantity: parseInt(item.quantity) })),
+    };
+
+    // console.log(decodeDisplayId(dataUpdate._id));
+    console.log(dataUpdate._id);
+    const handleUpdate = async () => {
+        // try {
+        //     const update = await updateGoodsDeliveries(dataUpdate._id, dataUpdate.items);
+        //     console.log('Update successful:', update);
+        // } catch (error) {
+        //     console.error('Error updating goods delivery:', error);
+        // }
+    };
     return (
         <div>
             <Table columns={columns} dataSource={dataSource} rowKey="_id" pagination={false} />
@@ -92,6 +109,7 @@ const GoodsDeliveryTableV1 = ({ selectedDelivery }) => {
                 }}
                 onMouseOver={(e) => (e.target.style.backgroundColor = '#40a9ff')}
                 onMouseOut={(e) => (e.target.style.backgroundColor = '#1890ff')}
+                onClick={handleUpdate}
             >
                 Cập nhật đơn hàng
             </button>

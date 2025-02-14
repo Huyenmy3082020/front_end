@@ -1,10 +1,10 @@
 export const formatVND = (amount) => {
     return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 };
-export const generateDisplayId = (id) => {
-    return `HD${id.slice(-6).toUpperCase()}`;
+export const encodeIdToHex = (id) => {
+    return Buffer.from(id).toString('hex').toUpperCase(); // Chuyển thành hex, chữ hoa
 };
-export const decodeDisplayId = (displayId, originalIdList) => {
-    const suffix = displayId.slice(2).toLowerCase(); // Bỏ "HD" và chuyển về chữ thường
-    return originalIdList.find(id => id.endsWith(suffix)) || null;
+
+export const decodeHexToId = (hex) => {
+    return Buffer.from(hex, 'hex').toString(); // Chuyển ngược từ hex về string
 };
