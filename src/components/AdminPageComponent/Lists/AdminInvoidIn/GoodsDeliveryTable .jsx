@@ -36,6 +36,7 @@ const GoodsDeliveryTable = () => {
 
     // Hàm mở modal khi bấm View
     const handleView = (record) => {
+        console.log(record);
         setSelectedDelivery(record);
         setIsModalVisible(true);
     };
@@ -61,20 +62,22 @@ const GoodsDeliveryTable = () => {
         },
     ];
 
+    console.log(selectedDelivery);
     return (
         <>
             <Table columns={columns} dataSource={data} loading={loading} rowKey="_id" />
 
-            {/* Modal hiển thị GoodTableDeliveryTable */}
             <Modal
                 title="Chi tiết Phiếu Nhập"
                 open={isModalVisible}
                 onCancel={() => setIsModalVisible(false)}
                 footer={null}
-                width={800} // Điều chỉnh độ rộng modal
+                width={1000}
             >
-                {selectedDelivery && <GoodsDeliveryTableV1 delivery={selectedDelivery} />}
+                {selectedDelivery && <GoodsDeliveryTableV1 selectedDelivery={selectedDelivery} />}
+            
             </Modal>
+
         </>
     );
 };
