@@ -19,20 +19,23 @@ function AdminProduct() {
             try {
                 // 📌 Lấy danh sách nguyên liệu
                 const productResponse = await Productservice.getAllIngredient();
-                const products = productResponse.data.ingredients; // Lấy danh sách ingredients
+                const products = productResponse.data.ingredients;
 
                 const inventoryData = await Promise.all(
                     products.map(async (product) => {
                         try {
                             const inventoryResponse = await InventoryService.getIngredientId(product._id);
-                            const inventory = inventoryResponse.data || { stock: 0, status: "Chưa có hàng" }; // Mặc định nếu chưa có
+                            const inventory = inventoryResponse.data || { stock: 0, status: 'Chưa có hàng' }; // Mặc định nếu chưa có
                             return { ...product, inventory };
                         } catch (error) {
-                            console.error(`Lỗi lấy inventory cho ${product._id}:, error`);
-                            return { ...product, inventory: { stock: 0, status: "Chưa có hàng" } }; // Xử lý lỗi và gán mặc định
+                            console.error(`Lỗi lấy inventory cho ${product._id}:`, error);
+                            return { ...product, inventory: { stock: 0, status: 'Chưa có hàng' } }; // Xử lý lỗi và gán mặc định
                         }
-                    })
+                    }),
+
                 );
+
+                console.log(inventoryData);
 
                 setProducts(inventoryData); // Cập nhật state với danh sách đã có inventory
             } catch (error) {

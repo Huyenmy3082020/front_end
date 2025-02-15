@@ -29,11 +29,10 @@ export const updateProduct = async (id, data) => {
         const res = await axiosInstance.put(`ingredient/${id}`, data);
         return res.data;
     } catch (error) {
-        console.error("Error updating product:", error);
+        console.error('Error updating product:', error);
         throw error;
     }
 };
-
 
 export const getAllIngredient = async () => {
     try {

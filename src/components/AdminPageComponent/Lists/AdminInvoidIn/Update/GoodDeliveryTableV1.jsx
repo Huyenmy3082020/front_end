@@ -71,6 +71,15 @@ const GoodsDeliveryTableV1 = ({ selectedDelivery }) => {
         },
     ];
 
+    const dataUpdate = {
+        _id: selectedDelivery._id,
+        items: dataSource.map((item) => ({ ...item, quantity: quantities[item._id] || item.quantity })),
+    };
+
+    console.log(dataUpdate);
+    const handleUpdate = () => {
+        console.log('Update đơn hàng:', selectedDelivery);
+    };
     return (
         <div>
             <Table columns={columns} dataSource={dataSource} rowKey="_id" pagination={false} />
@@ -92,6 +101,7 @@ const GoodsDeliveryTableV1 = ({ selectedDelivery }) => {
                 }}
                 onMouseOver={(e) => (e.target.style.backgroundColor = '#40a9ff')}
                 onMouseOut={(e) => (e.target.style.backgroundColor = '#1890ff')}
+                onClick={handleUpdate}
             >
                 Cập nhật đơn hàng
             </button>
