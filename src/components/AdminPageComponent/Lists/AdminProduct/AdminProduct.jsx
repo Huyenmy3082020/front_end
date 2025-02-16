@@ -44,7 +44,7 @@ function AdminProduct() {
         };
 
         fetchProductAll();
-    }, [products]);
+    }, []);
 
     const showModal = () => {
         setIsModalOpen(true);
