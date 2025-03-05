@@ -17,11 +17,6 @@ export const createProduct = async (data) => {
     }
 };
 
-export const createProductElasticSearch = async (data) => {
-    const res = await axiosJWT.post(`ingredient/elasticsearch`, data);
-    return res.data;
-};
-
 export const deleteProduct = async (id) => {
     try {
         const res = await axiosJWT.delete(`ingredient/${id}`);
@@ -44,7 +39,7 @@ export const updateProduct = async (id, data) => {
 
 export const getAllIngredient = async () => {
     try {
-        const res = await axiosInstance.get(`/ingredient`);
+        const res = await axiosJWT.get(`/ingredient`);
         return res.data;
     } catch (error) {
         throw new Error('L��i khi lấy dữ liệu đơn hàng');
@@ -53,7 +48,7 @@ export const getAllIngredient = async () => {
 
 export const getAllIngredientV1 = async () => {
     try {
-        const res = await axiosInstance.get(`/inventor`);
+        const res = await axiosJWT.get(`/inventor`);
         return res.data;
     } catch (error) {
         throw new Error('L��i khi lấy dữ liệu đơn hàng');
@@ -62,7 +57,7 @@ export const getAllIngredientV1 = async () => {
 
 export const getAllSupplier = async () => {
     try {
-        const res = await axiosInstance.get(`/supplier`);
+        const res = await axiosJWT.get(`/supplier`);
         return res.data.suppliers;
     } catch (error) {
         throw new Error('L��i khi lấy dữ liệu đơn hàng');
@@ -71,7 +66,7 @@ export const getAllSupplier = async () => {
 
 export const getAllCategory = async () => {
     try {
-        const res = await axiosInstance.get(`/category`);
+        const res = await axiosJWT.get(`/category`);
         return res.data.categories;
     } catch (error) {
         throw new Error('L��i khi lấy dữ liệu đơn hàng');
@@ -80,7 +75,7 @@ export const getAllCategory = async () => {
 
 export const searchElastic = async (searchQuery) => {
     try {
-        const res = await axiosInstance.get(`ingredient/search?searchQuery=${searchQuery.querySearch}`);
+        const res = await axiosJWT.get(`ingredient/search?searchQuery=${searchQuery.querySearch}`);
         return res;
     } catch (error) {
         throw new Error('L��i khi lấy dữ liệu đơn hàng');
