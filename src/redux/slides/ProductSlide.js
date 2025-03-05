@@ -76,6 +76,7 @@ export const {
     updateProduct,
     addProductAll,
     increaseStock,
+    updateProductStock,
     decreaseStock,
     updateProductStatus,
 } = productSlice.actions;

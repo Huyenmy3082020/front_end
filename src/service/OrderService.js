@@ -50,7 +50,7 @@ export const getOrder = async () => {
 
 export const getOrderPaid = async () => {
     try {
-        const res = await axiosInstance.get(`/order/getOrderPage`);
+        const res = await axiosJWT.get(`/order/getOrderPage`);
         return res.data;
     } catch (error) {
         console.error('Error fetching paid orders:', error.response || error.message || error);
@@ -60,7 +60,7 @@ export const getOrderPaid = async () => {
 
 export const deleteOrder = async (id) => {
     try {
-        const res = await axiosInstance.delete(`good/${id}`);
+        const res = await axiosJWT.delete(`good/${id}`);
         return res.data;
     } catch (error) {
         console.error('Error deleting order:', error.response || error.message || error);
