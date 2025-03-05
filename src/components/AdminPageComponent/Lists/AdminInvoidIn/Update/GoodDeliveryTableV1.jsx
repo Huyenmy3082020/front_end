@@ -127,6 +127,8 @@ const GoodsDeliveryTableV1 = ({ selectedDelivery, setSelectedDelivery, setIsModa
                     console.error('❌ Sản phẩm không hợp lệ khi dispatch:', product);
                 }
             });
+
+            setIsModalVisible(false);
         } catch (error) {
             message.error('Tạo đơn hàng thất bại!');
         }
@@ -144,7 +146,7 @@ const GoodsDeliveryTableV1 = ({ selectedDelivery, setSelectedDelivery, setIsModa
                     Cập nhật đơn hàng
                 </Button>
 
-                <Button type="primary" style={{ marginTop: '10px' }} onClick={handleCreated}>
+                <Button type="primary" style={{ marginTop: '10px' }} onClick={handleCreated} disabled={selectedDelivery.status === "Created"}>
                     Nhập hàng
                 </Button>
             </div>
