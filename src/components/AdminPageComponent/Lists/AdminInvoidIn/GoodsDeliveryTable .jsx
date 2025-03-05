@@ -150,6 +150,8 @@ const GoodsDeliveryTable = () => {
                         setIsModalVisible={setIsModalVisible}
                     />
                 )}
+
+                
             </Modal>
         </>
     );

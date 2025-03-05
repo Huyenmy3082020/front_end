@@ -52,6 +52,7 @@ export const getDetailUser = async () => {
         console.log('✅ Lấy thông tin user thành công:', res.data);
         return res.data;
     } catch (error) {
+        console.log(error.response.data.mess)
         return error.response.data.mess;
     }
 };

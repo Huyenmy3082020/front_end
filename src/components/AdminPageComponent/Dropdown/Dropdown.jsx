@@ -77,10 +77,15 @@ const DropdownPage = ({
             } catch (error) {}
         } else if (label === 'Xác nhận đơn hàng') {
             message.info('Đang gửi hàng...');
+           
             try {
                 await OrderService.ExportV1(data);
                 message.success('Xác nhận đơn hàng thành công!');
-            } catch (error) {}
+                setDeliveryAddress('');
+                setIsActionImport(true);
+            } catch (error) {
+                message.error('Vui long chon nha cung cap')
+            }
         }
     };
 
@@ -105,46 +110,7 @@ const DropdownPage = ({
             ),
             onClick: () => handleMenuClick('Gửi hàng'),
         },
-        {
-            key: '3',
-            label: (
-                <span>
-                    <ShoppingCartOutlined style={{ marginRight: 8 }} />
-                    Nhập hàng
-                </span>
-            ),
-            onClick: () => handleMenuClick('Nhập hàng'),
-        },
-        {
-            key: '4',
-            label: (
-                <span>
-                    <CloseOutlined style={{ marginRight: 8, color: 'red' }} />
-                    Hủy đơn hàng
-                </span>
-            ),
-            onClick: () => handleMenuClick('Hủy đơn hàng'),
-        },
-        {
-            key: '5',
-            label: (
-                <span>
-                    <DollarCircleOutlined style={{ marginRight: 8, color: 'green' }} />
-                    Hoàn tiền
-                </span>
-            ),
-            onClick: () => handleMenuClick('Hoàn tiền'),
-        },
-        {
-            key: '6',
-            label: (
-                <span>
-                    <FileTextOutlined style={{ marginRight: 8, color: 'blue' }} />
-                    Xuất hóa đơn
-                </span>
-            ),
-            onClick: () => handleMenuClick('Xuất hóa đơn'),
-        },
+        
     ];
 
     return (
