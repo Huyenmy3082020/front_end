@@ -1,130 +1,113 @@
 import React, { useState } from 'react';
 import {
     AppstoreOutlined,
-    BankOutlined,
+    ShopOutlined,
     CloudDownloadOutlined,
     CloudUploadOutlined,
-    DashboardFilled,
     DashboardOutlined,
-    OrderedListOutlined,
-    ProductOutlined,
-    ShopOutlined,
     SwapOutlined,
     TagsOutlined,
     UserOutlined,
+    ShoppingOutlined,
+    FileTextOutlined,
+    HomeOutlined,
+    BankOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import AdminProduct from '../AdminPageComponent/Lists/AdminProduct/AdminProduct';
 import styles from './AdminPage.module.scss';
 import DashboardPage from '../../components/AdminPageComponent/Main/DashboardPage';
 import AdminOrder from './Lists/AdminOrder/AdminOrder';
-
 import AdminInvoidIn from './Lists/AdminInvoidIn/AdminInvoidIn';
-
-import { useDispatch, useSelector } from 'react-redux';
-import UserService from '../../../src/service/Userservice';
-import { logout } from '../../redux/slides/UserSlideV1';
-import { IconDashboard } from '../IconComponent/IconComponent';
+import AdminInvoidOut from './Lists/AdminInvoidOut/AdminInvoidOut';
 import Categories from './Lists/Sup&Cate/Categories/CategoriesPage';
 import Suppliers from './Lists/Sup&Cate/Supplier/SupplierPage';
-import AdminInvoidOut from './Lists/AdminInvoidOut/AdminInvoidOut';
+
 const items = [
     {
         key: 'dashboard',
         label: 'Trang chủ',
-        icon: <DashboardOutlined />,
+        icon: <HomeOutlined style={{ color: '#1890ff' }} />,
     },
-
     {
         key: 'product',
         label: 'Sản phẩm',
-        icon: <ProductOutlined></ProductOutlined>,
+        icon: <ShoppingOutlined style={{ color: '#52c41a' }} />,
     },
     {
         key: 'order',
         label: 'Xuất & nhập hàng',
-        icon: <SwapOutlined />,
+        icon: <SwapOutlined style={{ color: '#faad14' }} />,
     },
     {
         key: 'invoice',
         label: 'Danh sách xuất nhập hàng',
-        icon: <ShopOutlined />,
+        icon: <FileTextOutlined style={{ color: '#722ed1' }} />,
         children: [
             {
                 key: 'invoid-in',
                 label: 'Danh sách nhập',
-                icon: <CloudDownloadOutlined />,
+                icon: <CloudDownloadOutlined style={{ color: '#13c2c2' }} />,
             },
             {
                 key: 'invoid-out',
                 label: 'Danh sách xuất',
-                icon: <CloudUploadOutlined />,
+                icon: <CloudUploadOutlined style={{ color: '#eb2f96' }} />,
             },
         ],
     },
     {
-        key: '',
+        key: 'category_supplier',
         label: 'Danh mục & Nhà cung cấp',
-        icon: <AppstoreOutlined />,
+        icon: <AppstoreOutlined style={{ color: '#ff4d4f' }} />,
         children: [
             {
                 key: 'Suppliers',
                 label: 'Nhà cung cấp',
-                icon: <TagsOutlined />,
+                icon: <BankOutlined style={{ color: '#faad14' }} />,
             },
             {
                 key: 'Categories',
                 label: 'Danh mục',
-                icon: <ShopOutlined />,
+                icon: <TagsOutlined style={{ color: '#1890ff' }} />,
             },
         ],
     },
 ];
+
 const renderPage = (key) => {
     switch (key) {
         case 'product':
-            return <AdminProduct></AdminProduct>;
+            return <AdminProduct />;
         case 'order':
-            return <AdminOrder></AdminOrder>;
+            return <AdminOrder />;
         case 'invoid-in':
-            return <AdminInvoidIn></AdminInvoidIn>;
+            return <AdminInvoidIn />;
         case 'invoid-out':
-            return <AdminInvoidOut></AdminInvoidOut>;
+            return <AdminInvoidOut />;
         case 'dashboard':
-            return <DashboardPage></DashboardPage>;
+            return <DashboardPage />;
         case 'Suppliers':
-            return <Suppliers></Suppliers>;
+            return <Suppliers />;
         case 'Categories':
-            return <Categories></Categories>;
-        default: {
+            return <Categories />;
+        default:
             return <></>;
-        }
     }
 };
+
 const App = () => {
-    const [selectedKey, setSelectedKey] = useState('product');
+    const [selectedKey, setSelectedKey] = useState('dashboard');
 
     const onClick = (e) => {
         setSelectedKey(e.key);
     };
 
     return (
-        <>
-            <div className={styles.container}>
-                <Menu
-                    onClick={onClick}
-                    className={styles.menu}
-                    style={{
-                        width: 256,
-                    }}
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
-                    mode="inline"
-                    items={items}
-                />
-                <div className={styles.content}>{renderPage(selectedKey)}</div>
-            </div>
-        </>
+        <div className={styles.container}>
+            <Menu onClick={onClick} className={styles.menu} style={{ width: 256 }} mode="inline" items={items} />
+            <div className={styles.content}>{renderPage(selectedKey)}</div>
+        </div>
     );
 };
 

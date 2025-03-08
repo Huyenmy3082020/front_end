@@ -61,3 +61,12 @@
     object-fit: cover;
     margin-right: 10px;
 }
+.iconHover {
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+        color: #ff4d4f;
+    }
+}

@@ -15,8 +15,7 @@ export const ExportV1 = async (data) => {
         console.log(res);
         return res.data;
     } catch (error) {
-        message.error(error.response.data.message);
-        console.error(error.response.data.message);
+        console.log(error);
         throw new Error('Failed to create order');
     }
 };
