@@ -23,7 +23,7 @@ function Supplier() {
         <div>
             <HeaderPageAdminProduct></HeaderPageAdminProduct>
             <div style={{ backgroundColor: '#f4f4f4', paddingLeft: '16px', paddingTop: '16px' }}>
-                <h1 style={{ fontSize: '2.6rem' }}>Thông tin người dùng</h1>
+                <h1 style={{ fontSize: '2.6rem' }}>Thông tin nhà cung cấp</h1>
 
                 <TableSupplier data={supplier}></TableSupplier>
             </div>

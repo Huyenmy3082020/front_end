@@ -22,7 +22,7 @@ import {
     ShoppingCartOutlined,
 } from '@ant-design/icons';
 const DropdownPage = ({
-    selectedsupplier,
+    selectedSupplier,
     selectedProduct,
     handleTotalPrice,
     isActionImport,
@@ -42,7 +42,7 @@ const DropdownPage = ({
     const dispatch = useDispatch();
 
     const handleMenuClick = async (label) => {
-        if (!selectedProduct || selectedProduct.length === 0) {
+        if (!selectedProduct || selectedProduct?.length === 0) {
             message.warning('Vui lòng chọn ít nhất một sản phẩm!');
             return;
         }
@@ -55,13 +55,14 @@ const DropdownPage = ({
                 priceAtPurchase: product.price || 0,
                 status: 'Pending',
             })),
-            supplierName: selectedsupplier,
+            supplierName: selectedSupplier,
             deliveryAddress,
             totalPrice: selectedProduct.reduce(
                 (acc, product) => acc + (product.quantity || 1) * (product.price || 0),
                 0,
             ),
         };
+        console.log(selectedSupplier);
         if (label === 'Gửi hàng') {
             message.info('Đang gửi hàng...');
             try {
@@ -78,7 +79,13 @@ const DropdownPage = ({
         } else if (label === 'Xác nhận đơn hàng') {
             message.info('Đang gửi hàng...');
             try {
+                if (selectedSupplier === '' || selectedSupplier === null || selectedSupplier === undefined) {
+                    message.warning('Vui lòng chọn nhà cung cấp!');
+                    return;
+                }
                 await OrderService.ExportV1(data);
+                setDeliveryAddress('');
+                setIsActionImport(true);
                 message.success('Xác nhận đơn hàng thành công!');
             } catch (error) {}
         }
@@ -105,56 +112,36 @@ const DropdownPage = ({
             ),
             onClick: () => handleMenuClick('Gửi hàng'),
         },
-        {
-            key: '3',
-            label: (
-                <span>
-                    <ShoppingCartOutlined style={{ marginRight: 8 }} />
-                    Nhập hàng
-                </span>
-            ),
-            onClick: () => handleMenuClick('Nhập hàng'),
-        },
-        {
-            key: '4',
-            label: (
-                <span>
-                    <CloseOutlined style={{ marginRight: 8, color: 'red' }} />
-                    Hủy đơn hàng
-                </span>
-            ),
-            onClick: () => handleMenuClick('Hủy đơn hàng'),
-        },
-        {
-            key: '5',
-            label: (
-                <span>
-                    <DollarCircleOutlined style={{ marginRight: 8, color: 'green' }} />
-                    Hoàn tiền
-                </span>
-            ),
-            onClick: () => handleMenuClick('Hoàn tiền'),
-        },
-        {
-            key: '6',
-            label: (
-                <span>
-                    <FileTextOutlined style={{ marginRight: 8, color: 'blue' }} />
-                    Xuất hóa đơn
-                </span>
-            ),
-            onClick: () => handleMenuClick('Xuất hóa đơn'),
-        },
     ];
 
     return (
         <Space direction="vertical">
             <Space wrap>
                 <Dropdown menu={{ items }} placement="topRight">
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                        <Button icon={<SaveOutlined />}>Lưu</Button>
-                    </div>
+                    <Button type="primary" icon={<ShoppingCartOutlined />}>
+                        Xử lý đơn hàng
+                    </Button>
                 </Dropdown>
+
+                <Button danger icon={<CloseOutlined />} onClick={() => message.warning('Đã hủy đơn hàng!')}>
+                    Hủy đơn hàng
+                </Button>
+
+                <Button icon={<FileTextOutlined />} onClick={() => message.info('Đang mở hóa đơn...')}>
+                    Xem hóa đơn
+                </Button>
+
+                <Button
+                    type="primary"
+                    icon={<DollarCircleOutlined />}
+                    onClick={() => message.success('Thanh toán thành công!')}
+                >
+                    Thanh toán ngay
+                </Button>
+
+                <Button icon={<SaveOutlined />} onClick={() => message.success('Đã lưu đơn hàng!')}>
+                    Lưu
+                </Button>
             </Space>
         </Space>
     );

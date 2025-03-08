@@ -5,10 +5,18 @@ import ShipmentDeliveryTable from './ShipmentDeliveryTable.jsx';
 
 function AdminInvoidOut() {
     return (
-        <div>
+        <div style={{ backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
             <HeaderPageAdminProduct />
-            <div style={{ padding: '20px', backgroundColor: '#f0f2f5' }}>
-                <div style={{ backgroundColor: '#fff', borderRadius: '10px' }}>
+
+            <div style={{ padding: '20px' }}>
+                <div
+                    style={{
+                        backgroundColor: '#fff',
+                        borderRadius: '10px',
+                        padding: '15px',
+                        boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
+                    }}
+                >
                     <ShipmentDeliveryTable></ShipmentDeliveryTable>
                 </div>
             </div>

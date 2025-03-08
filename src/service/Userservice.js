@@ -27,6 +27,12 @@ axiosJWT.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
 
+        // Nếu lỗi không phải 401 thì trả về lỗi luôn, không gọi refresh token
+        if (error.response?.status !== 401) {
+            return Promise.reject(error);
+        }
+
+        // Kiểm tra token có hết hạn không
         if (isTokenExpired(accessToken)) {
             console.log('⚠️ Token hết hạn, thực hiện refresh...');
             try {
@@ -37,9 +43,12 @@ axiosJWT.interceptors.response.use(
                 return axiosJWT(originalRequest); // Gửi lại request với token mới
             } catch (refreshError) {
                 console.error('❌ Refresh token thất bại, đăng xuất người dùng...');
+                store.dispatch(logout()); // Đăng xuất nếu refresh thất bại
                 return Promise.reject(refreshError);
             }
         }
+
+        // Nếu token không hết hạn nhưng vẫn lỗi 401 thì trả về lỗi luôn (ví dụ: đăng nhập sai)
         return Promise.reject(error);
     },
 );
@@ -79,10 +88,15 @@ export const logoutUser = async () => {
     }
 };
 export const loginUser = async (data) => {
-    const res = await axios.post(`${process.env.REACT_APP_API_URL}user/sign-in`, data, {
-        withCredentials: true,
-    });
-    return res.data;
+    try {
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}user/sign-in`, data, {
+            withCredentials: true,
+        });
+
+        return res.data;
+    } catch (e) {
+        throw e;
+    }
 };
 
 export const signUpUser = async (data) => {

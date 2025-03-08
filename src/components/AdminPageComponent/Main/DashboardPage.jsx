@@ -5,7 +5,6 @@ import styles from '../../../components/AdminPageComponent/Main/DashboardPage.mo
 import { DailiVisitor2, DailyVisitor, IconTang, TotalOrder, TotalSell } from '../../IconComponent/IconComponent';
 import HeaderPageAdminProduct from '../HeaderPageAdmin/HederPageAdminProduct';
 
-// Sample data
 const data = [
     { name: 'Mon', totalSales: 12 },
     { name: 'Tue', totalSales: 19 },
@@ -16,108 +15,58 @@ const data = [
     { name: 'Sun', totalSales: 10 },
 ];
 
+const CardItem = ({ Icon, title, amount, colorClass }) => (
+    <div className={styles.wrapperItem}>
+        <div className={styles.sherah_progress_card__content}>
+            <div className={styles.progressIcon}>
+                <Icon />
+            </div>
+            <div className={styles.sherah_progress_card__heading}>
+                <span className={styles.sherah_pcolor}>{title}</span>
+                <h4 className={styles.sherah_progress_card__title}>
+                    <b>{amount}</b>
+                </h4>
+            </div>
+            <div className={styles.sherah_progress_card__button}>
+                <p className={`${styles.sherah_progress_card__text_color} ${colorClass}`}>
+                    <IconTang /> 16%
+                </p>
+                <div style={{ borderBottom: '1px solid #bbb' }}>
+                    <a className={styles.sherah_see_all}>View net earnings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
 function DashboardPage() {
     return (
         <div>
-            <HeaderPageAdminProduct></HeaderPageAdminProduct>
+            <HeaderPageAdminProduct />
             <div className={styles.wrapper}>
                 <div className={styles.wrapperList}>
-                    <div className={styles.wrapperItem}>
-                        <div className={styles.sherah_progress_card__content}>
-                            <div className={styles.progressIcon}>
-                                <TotalSell></TotalSell>
-                            </div>
-                            <div className={styles.sherah_progress_card__heading}>
-                                <span className={styles.sherah_pcolor}>Total Sells</span>
-                                <h4 className={styles.sherah_progress_card__title}>
-                                    <b>$654.66k</b>
-                                </h4>
-                            </div>
-                            <div className={styles.sherah_progress_card__button}>
-                                <p className={`${styles.sherah_progress_card__text_color} ${styles.classColor1}`}>
-                                    <IconTang></IconTang>
-                                    16%
-                                </p>
-
-                                <div style={{ borderBottom: '1px solid #bbb' }}>
-                                    <a className={styles.sherah_see_all}>View net earnings</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.wrapperItem}>
-                        <div className={styles.sherah_progress_card__content}>
-                            <div className={styles.progressIcon}>
-                                <TotalOrder></TotalOrder>
-                            </div>
-                            <div className={styles.sherah_progress_card__heading}>
-                                <span className={styles.sherah_pcolor}>Total Orders</span>
-                                <h4 className={styles.sherah_progress_card__title}>
-                                    <b>$654.66k</b>
-                                </h4>
-                            </div>
-                            <div className={styles.sherah_progress_card__button}>
-                                <p className={`${styles.sherah_progress_card__text_color} ${styles.classColor2}`}>
-                                    <IconTang></IconTang>
-                                    16%
-                                </p>
-
-                                <div style={{ borderBottom: '1px solid #bbb' }}>
-                                    <a className={styles.sherah_see_all}>View net earnings</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.wrapperItem}>
-                        <div className={styles.sherah_progress_card__content}>
-                            <div className={styles.progressIcon}>
-                                <DailyVisitor></DailyVisitor>
-                            </div>
-                            <div className={styles.sherah_progress_card__heading}>
-                                <span className={styles.sherah_pcolor}>Daily Visitor</span>
-                                <h4 className={styles.sherah_progress_card__title}>
-                                    <b>$654.66k</b>
-                                </h4>
-                            </div>
-                            <div className={styles.sherah_progress_card__button}>
-                                <p className={`${styles.sherah_progress_card__text_color} ${styles.classColor3}`}>
-                                    <IconTang></IconTang>
-                                    16%
-                                </p>
-
-                                <div style={{ borderBottom: '1px solid #bbb' }}>
-                                    <a className={styles.sherah_see_all}>View net earnings</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.wrapperItem}>
-                        <div className={styles.sherah_progress_card__content}>
-                            <div className={styles.progressIcon}>
-                                <DailiVisitor2></DailiVisitor2>
-                            </div>
-                            <div className={styles.sherah_progress_card__heading}>
-                                <span className={styles.sherah_pcolor}>Daily Visitor</span>
-                                <h4 className={styles.sherah_progress_card__title}>
-                                    <b>$654.66k</b>
-                                </h4>
-                            </div>
-                            <div className={styles.sherah_progress_card__button}>
-                                <p className={`${styles.sherah_progress_card__text_color} ${styles.classColor4}`}>
-                                    <IconTang></IconTang>
-                                    16%
-                                </p>
-
-                                <div style={{ borderBottom: '1px solid #bbb' }}>
-                                    <a className={styles.sherah_see_all}>View net earnings</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <CardItem Icon={TotalSell} title="Total Sells" amount="$654.66k" colorClass={styles.classColor1} />
+                    <CardItem
+                        Icon={TotalOrder}
+                        title="Total Orders"
+                        amount="$654.66k"
+                        colorClass={styles.classColor2}
+                    />
+                    <CardItem
+                        Icon={DailyVisitor}
+                        title="Daily Visitor"
+                        amount="$654.66k"
+                        colorClass={styles.classColor3}
+                    />
+                    <CardItem
+                        Icon={DailiVisitor2}
+                        title="Daily Visitor"
+                        amount="$654.66k"
+                        colorClass={styles.classColor4}
+                    />
                 </div>
             </div>
 
-            {/* Total Sales Chart Section */}
             <div className={styles.wrapperItem2}>
                 <div style={{ fontSize: '14px', fontWeight: 500 }}>Total Sales</div>
                 <div className={styles.wrapper_btn}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Table, Tag, Input } from 'antd';
+import { Button, Modal, Table, Tag, Input, Space } from 'antd';
 import { fetchShipmentDeliveries } from '../../../../service/GoodsDeliveryService';
 import { FolderViewOutlined, SearchOutlined } from '@ant-design/icons';
 import GoodsDeliveryTableV1 from './Update/GoodDeliveryTableV1';
@@ -24,7 +24,6 @@ const ShipmentDeliveryTable = () => {
                 setLoading(false);
             }
         };
-
         fetchData();
     }, []);
 
@@ -49,16 +48,6 @@ const ShipmentDeliveryTable = () => {
             dataIndex: '_id',
             key: '_id',
             sorter: (a, b) => a._id.localeCompare(b._id),
-            filterDropdown: () => (
-                <div style={{ padding: 8 }}>
-                    <Input
-                        placeholder="Tìm theo Mã Đơn Hàng"
-                        value={searchText}
-                        onChange={(e) => handleSearch(e.target.value)}
-                        style={{ width: 200, marginBottom: 8, display: 'block' }}
-                    />
-                </div>
-            ),
             render: (text) => <strong>{text}</strong>,
         },
         {
@@ -66,16 +55,6 @@ const ShipmentDeliveryTable = () => {
             dataIndex: 'userId',
             key: 'userId',
             sorter: (a, b) => a.userId.localeCompare(b.userId),
-            filterDropdown: () => (
-                <div style={{ padding: 8 }}>
-                    <Input
-                        placeholder="Tìm theo Người Dùng"
-                        value={searchText}
-                        onChange={(e) => handleSearch(e.target.value)}
-                        style={{ width: 200, marginBottom: 8, display: 'block' }}
-                    />
-                </div>
-            ),
         },
         {
             title: 'Tổng Tiền (VNĐ)',
@@ -103,7 +82,7 @@ const ShipmentDeliveryTable = () => {
             onFilter: (value, record) => record.status === value,
             sorter: (a, b) => a.status.localeCompare(b.status),
             render: (status) => {
-                let color = status === 'Pending' ? 'orange' : status === 'SHIPPED' ? 'green' : 'blue';
+                const color = status === 'Pending' ? 'orange' : status === 'SHIPPED' ? 'green' : 'blue';
                 return <Tag color={color}>{status.toUpperCase()}</Tag>;
             },
         },
@@ -111,8 +90,8 @@ const ShipmentDeliveryTable = () => {
             title: 'Hành động',
             key: 'actions',
             render: (_, record) => (
-                <Button icon={<FolderViewOutlined />} onClick={() => handleView(record)}>
-                    Xem chi tiết
+                <Button type="link" icon={<FolderViewOutlined />} onClick={() => handleView(record)}>
+                    Xem
                 </Button>
             ),
         },
@@ -120,13 +99,16 @@ const ShipmentDeliveryTable = () => {
 
     return (
         <>
-            <Input
-                placeholder="🔍 Nhập từ khóa tìm kiếm..."
-                prefix={<SearchOutlined />}
-                value={searchText}
-                onChange={(e) => handleSearch(e.target.value)}
-                style={{ width: 300, marginBottom: 16 }}
-            />
+            <Space style={{ marginBottom: 16 }}>
+                <Input
+                    placeholder="🔍 Tìm kiếm..."
+                    prefix={<SearchOutlined />}
+                    value={searchText}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    style={{ width: 300 }}
+                    allowClear
+                />
+            </Space>
 
             <Table
                 columns={columns}
