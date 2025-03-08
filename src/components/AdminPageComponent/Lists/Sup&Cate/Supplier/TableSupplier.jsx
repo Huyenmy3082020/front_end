@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { Table, Button, Popconfirm, Tag } from 'antd';
-import { EditOutlined, DeleteOutlined, FolderViewOutlined } from '@ant-design/icons';
+import { Table, Button, Popconfirm, Tag, Space } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 
 const TableSupplier = ({ data }) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+    const handleSelectChange = (selectedKeys) => {
+        setSelectedRowKeys(selectedKeys);
+    };
+
+    const handleDelete = (id) => {
+        console.log('Xóa nhà cung cấp với ID:', id);
+    };
 
     const columns = [
         {
@@ -23,51 +31,42 @@ const TableSupplier = ({ data }) => {
         },
         {
             title: 'Trạng thái',
-            dataIndex: 'status', // Đổi từ isActive thành status
+            dataIndex: 'status',
             key: 'status',
-            render: (status) => (status ? <Tag color="green">Hoạt động</Tag> : <Tag color="red">Không hoạt động</Tag>),
+            render: (status) => <Tag color={status ? 'green' : 'red'}>{status ? 'Hoạt động' : 'Không hoạt động'}</Tag>,
         },
-
         {
             title: 'Hành động',
             key: 'actions',
             render: (_, record) => (
-                <div>
+                <Space>
                     <Popconfirm
                         title="Bạn có chắc chắn muốn xóa nhà cung cấp này?"
                         onConfirm={() => handleDelete(record._id)}
+                        okText="Có"
+                        cancelText="Hủy"
                     >
-                        <Button icon={<DeleteOutlined />} type="danger">
+                        <Button icon={<DeleteOutlined />} danger>
                             Xóa
                         </Button>
                     </Popconfirm>
-                </div>
+                </Space>
             ),
         },
     ];
 
-    const handleSelectChange = (selectedKeys) => {
-        setSelectedRowKeys(selectedKeys);
-    };
-
-    const handleEdit = (supplier) => {};
-
-    const handleDelete = (id) => {};
-
     return (
-        <div>
-            <Table
-                rowSelection={{
-                    type: 'checkbox',
-                    selectedRowKeys,
-                    onChange: handleSelectChange,
-                }}
-                columns={columns}
-                dataSource={data || []} // Tránh lỗi nếu data là null hoặc undefined
-                rowKey="_id"
-                scroll={{ x: 'max-content' }} // kích hoạt cuộn ngang
-            />
-        </div>
+        <Table
+            rowSelection={{
+                type: 'checkbox',
+                selectedRowKeys,
+                onChange: handleSelectChange,
+            }}
+            columns={columns}
+            dataSource={data || []}
+            rowKey="_id"
+            scroll={{ x: 'max-content' }}
+        />
     );
 };
 

@@ -35,6 +35,7 @@ function SignInPage() {
         try {
             const dataLogin = await UserService.loginUser({ email, password });
             const token = dataLogin.access_token;
+            message.success('Đăng nhập thành công');
             localStorage.setItem('access_token', token);
             const res = await getDetailUser();
             dispatch(updateUser(res));
@@ -43,7 +44,7 @@ function SignInPage() {
             const ress = await Productservice.getAllIngredientV1();
             dispatch(addProductAll(ress.data));
         } catch (error) {
-            console.error(error);
+            message.error(error.response.data.message);
         }
     };
 

@@ -6,7 +6,7 @@ import { formatVND } from '../../../ultil/index';
 import { setOrder } from '../../../redux/slides/OrderSlide';
 
 function FooterAdmin({
-    selectedsupplier,
+    selectedSupplier,
     selectedProduct,
     isActionImport,
     setIsActionImport,
@@ -19,11 +19,12 @@ function FooterAdmin({
         setCalculatedTotalPrice(price);
     };
 
+    console.log('selectedSupplier', selectedSupplier);
     return (
         <div className={styles.wrapperList}>
             <div className={styles.footerRight}>
                 <DropdownPage
-                    selectedsupplier={selectedsupplier}
+                    selectedSupplier={selectedSupplier}
                     selectedProduct={selectedProduct}
                     handleTotalPrice={handleTotalPrice}
                     isActionImport={isActionImport}
